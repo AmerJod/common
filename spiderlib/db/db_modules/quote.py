@@ -14,6 +14,7 @@ class Quote(Base):
 
     quote_id = Column(Integer, primary_key=True)
     text = Column(String)
+
     author_id = Column(Integer, ForeignKey("authors.author_id"))
     author = relationship('Author', back_populates='quotes')
 

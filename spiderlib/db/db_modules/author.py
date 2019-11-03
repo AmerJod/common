@@ -19,7 +19,7 @@ class Author(Base):
     description = Column(String)
 
     quotes = relationship('Quote', back_populates='author',
-                          lazy=True)
+                          lazy=False)
 
     def __repr__(self):
         return (

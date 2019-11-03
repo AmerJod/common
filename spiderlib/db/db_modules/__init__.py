@@ -4,6 +4,7 @@ from spiderlib.db import Table, Column, Integer, ForeignKey
 
 Base = declarative_base()
 
+# Many to many relationship table 'quotes_tags'
 association_table = Table(
     "quotes_tags",
     Base.metadata,

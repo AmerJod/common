@@ -36,10 +36,11 @@ class Database(object):
         POSTGRES_PW = config.get("POSTGRES_PW")
         POSTGRES_DB = config.get("POSTGRES_DB")
 
-        logger.debug("construct connection string")
+        logger.debug("Connection string has been constructed")
 
-        return f'postgresql://{POSTGRES_USER}:{POSTGRES_PW}@{POSTGRES_URL}/{POSTGRES_DB}'
-
+        return (
+            f"postgresql://{POSTGRES_USER}:{POSTGRES_PW}@{POSTGRES_URL}/{POSTGRES_DB}"
+        )
 
     # Not in used yet
     # using property decorator
@@ -70,7 +71,9 @@ class Database(object):
             logger.debug("db instance has has been added to the database")
             return obj
         except Exception as error:
-            logger.error(f"db instance has has been added to the database, Error: {error}")
+            logger.error(
+                f"db instance has has been added to the database, Error: {error}"
+            )
 
     def query(self, obj, **kwargs):
         """
@@ -94,8 +97,9 @@ class Database(object):
             return None
 
         except Exception as error:
-            logger.error(f"db instance has has been added to the database, Error: {error}")
-
+            logger.error(
+                f"db instance has has been added to the database, Error: {error}"
+            )
 
     def query_one(self, obj, **kwargs):
         """
