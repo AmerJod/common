@@ -1,4 +1,8 @@
 
+- Author:   Amer Joudiah
+- Date:     3/11/2019
+
+
 ``spiderlib``: A simple common lib for the API/spiders project :)
 =================================================================
 
