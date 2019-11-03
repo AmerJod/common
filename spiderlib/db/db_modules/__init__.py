@@ -4,6 +4,7 @@ from spiderlib.db import Table, Column, Integer, ForeignKey
 
 Base = declarative_base()
 
+
 # Many to many relationship table 'quotes_tags'
 association_table = Table(
     "quotes_tags",
@@ -12,6 +13,7 @@ association_table = Table(
     Column("tag_id", Integer, ForeignKey("tags.tag_id")),
 )
 
+# Need to be imported here after the association_table being declared
 from spiderlib.db.db_modules.author import Author
 from spiderlib.db.db_modules.tag import Tag
 from spiderlib.db.db_modules.quote import Quote

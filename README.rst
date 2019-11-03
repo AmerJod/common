@@ -8,10 +8,10 @@ Modules Included:
 =================
 
 1.   ``db``:
-a single interface to make connection to the db, and perform queury
+        - a single interface to make connection to the db, and perform queury
 
 2.  ``logger``:
-a single interface to deal with logger, can create multiple loggers per module.
+        - a single interface to deal with logger, can create multiple loggers per module.
 
 3.  ``radis``:
-used for cashing purpose
+        - used for cashing purpose

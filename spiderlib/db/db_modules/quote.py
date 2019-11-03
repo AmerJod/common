@@ -16,13 +16,12 @@ class Quote(Base):
     text = Column(String)
 
     author_id = Column(Integer, ForeignKey("authors.author_id"))
-    author = relationship('Author', back_populates='quotes')
+    author = relationship("Author", back_populates="quotes")
 
     tags = relationship("Tag", secondary=association_table)
 
     def __repr__(self):
         return f"<Quote(text='{self.text}', author_id={self.text})>"
-
 
     # It is an easy way to convert it to json
     @property
@@ -30,7 +29,7 @@ class Quote(Base):
         return {
             "quote_id": self.quote_id,
             "text": self.text,
-            "author_id": self.author_id
+            "author_id": self.author_id,
         }
 
     # Not in use at the moment - kept for future work
