@@ -17,14 +17,18 @@ class Database(object):
     def __init__(self, **config):
 
         __db_conn_string = self.__construct_connection_string(**config)
-        self.engine = create_engine(__db_conn_string)
-        self.connection = self.engine.connect()
-        self._session = sessionmaker(bind=self.engine)()
+        try:
+            self.engine = create_engine(__db_conn_string)
+            self.connection = self.engine.connect()
+            self._session = sessionmaker(bind=self.engine)()
 
-        # Enable and disable lazy_load
-        self._lazy_load = config.get("DATABASE_LAZY_LOAD", False)
+            # Enable and disable lazy_load
+            self._lazy_load = config.get("DATABASE_LAZY_LOAD", False)
+            logger.debug("DB Instance connected")
 
-        logger.debug("DB Instance connected")
+        except Exception as error:
+            logger.critical("Something went wrong while connecting to the postgres db,"
+                            "make sure that the database server is up running")
 
     def __construct_connection_string(self, **config):
         """ Construct connection string """
@@ -38,9 +42,8 @@ class Database(object):
 
         logger.debug("Connection string has been constructed")
 
-        return (
-            f"postgresql://{POSTGRES_USER}:{POSTGRES_PW}@{POSTGRES_URL}/{POSTGRES_DB}"
-        )
+        conn_string = f"postgresql://{POSTGRES_USER}:{POSTGRES_PW}@{POSTGRES_URL}/{POSTGRES_DB}"
+        return conn_string
 
     # Not in used yet
     # using property decorator
@@ -85,7 +88,7 @@ class Database(object):
         """
         try:
             db_objs = self._session.query(obj).filter_by(**kwargs).all()
-            logger.debug("Queried the db")
+            logger.debug("db has been queried")
             return db_objs
 
         except NoResultFound as error:
@@ -112,6 +115,7 @@ class Database(object):
 
         try:
             db_obj = self._session.query(obj).filter_by(**kwargs).one()
+            logger.debug("db has been queried")
             return db_obj
 
         except NoResultFound as error:
@@ -135,6 +139,7 @@ class Database(object):
 
         try:
             db_obj = self._session.query(obj).filter_by(**kwargs).one()
+            logger.debug("db has been queried")
             return (True, db_obj)
 
         except NoResultFound as error:
@@ -142,14 +147,3 @@ class Database(object):
 
         except Exception as error:
             logger.error(f"Something went wrong, Error: {error}")
-
-    # def get_or_create(self, model, **kwargs):
-    #     try:
-    #         # basically check the obj from the db, this syntax might be wrong
-    #         object = self._session.query(model).filter(**kwargs).first()
-    #         return object
-    #     except DoesNotExistException:  # or whatever error/exception it is on SQLA
-    #         pass
-    #         # object = model()
-    #         # # do it here if you want to save the obj to the db
-    #         # return object
