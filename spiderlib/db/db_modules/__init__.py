@@ -11,8 +11,6 @@ association_table = Table(
     Column("tag_id", Integer, ForeignKey("tags.tag_id")),
 )
 
-
-# TODO: remvoe them later
 from spiderlib.db.db_modules.author import Author
 from spiderlib.db.db_modules.tag import Tag
 from spiderlib.db.db_modules.quote import Quote

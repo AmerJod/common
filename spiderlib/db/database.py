@@ -3,19 +3,17 @@ from sqlalchemy.orm.exc import *
 from sqlalchemy.orm import sessionmaker
 
 from spiderlib.db.db_modules import Base
-from spiderlib.db.db_modules.author import Author
-from spiderlib.db.db_modules.quote import Quote
-from spiderlib.db.db_modules.tag import Tag
-
-# TODO: check it later
-# from spiderlib.db.db_modules import Quote, Tag,Author
+from spiderlib.db.db_modules import Quote, Tag, Author
 
 from spiderlib.db import logger
 
+
 class Database(object):
+    """
+        Database Class that handles all the db queries, connections
+    """
 
     # The values of those depend on your setup
-
     def __init__(self, **config):
 
         __db_conn_string = self.__construct_connection_string(**config)
@@ -29,7 +27,7 @@ class Database(object):
         logger.debug("DB Instance connected")
 
     def __construct_connection_string(self, **config):
-        """ construct connection string """
+        """ Construct connection string """
 
         # TODO: rasie an error incase one of is are empty
         # Get the db connection details
@@ -84,7 +82,7 @@ class Database(object):
         """
         try:
             db_objs = self._session.query(obj).filter_by(**kwargs).all()
-            logger.debug("Queried the DB")
+            logger.debug("Queried the db")
             return db_objs
 
         except NoResultFound as error:
@@ -96,7 +94,7 @@ class Database(object):
             return None
 
         except Exception as error:
-            logger.error(f"DB instance has has been added to the database, Error: {error}")
+            logger.error(f"db instance has has been added to the database, Error: {error}")
 
 
     def query_one(self, obj, **kwargs):
