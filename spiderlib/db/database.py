@@ -24,6 +24,7 @@ class Database(object):
 
             # Enable and disable lazy_load
             self._lazy_load = config.get("DATABASE_LAZY_LOAD", False)
+            self._create_tables()
             logger.debug("DB Instance connected")
 
         except Exception as error:
