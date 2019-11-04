@@ -75,7 +75,7 @@ class Database(object):
             return obj
         except Exception as error:
             logger.error(
-                f"db instance has has been added to the database, Error: {error}"
+                f"db instance has not been added to the database, Error: {error}"
             )
 
     def query(self, obj, **kwargs):

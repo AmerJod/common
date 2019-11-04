@@ -6,7 +6,7 @@ from spiderlib.db.utils import to_json
 class Author(Base):
     """
        Author table
-       - One to many with Ouote table
+       - One to many with Quote table
     """
 
     __tablename__ = "authors"
